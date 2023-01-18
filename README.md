@@ -1,3 +1,3 @@
 # LEstevez-REST-API
 
-My first Rest API
+csc307 Rest Api
