@@ -4,21 +4,32 @@ const port = 5000;
 
 app.use(express.json());
 
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
+
 app.get('/users', (req, res) => { //get users by name
     const name = req.query.name;
     const job = req.query.job;
-    if (name != undefined){
+    if(name == undefined && job == undefined){
+        res.send(users);
+    }
+    else if (name != undefined && job == undefined){
         let result = findUserByName(name);
         result = {users_list: result};
         res.send(result);
     }
-    else if(job != undefined){
+    else if(job != undefined && name == undefined){
         let result = findUserByJob(job);
         result = {users_list: result};
         res.send(result);
     }
     else{
-        res.send(users);
+        let result1 = findUserByName(name);
+        let result2 = findUserByJob(job);
+        let result = result1.concat(result2);
+        result = {users_list: result};
+        res.send(result);
     }
 });
 
